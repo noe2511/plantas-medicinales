@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo uso médico{% endblock %}
+
+{% block body %}
+    <h1>Crear nuevo uso médico</h1>
+
+    {{ include('usomedico/_form.html.twig') }}
+
+    <a href="{{ path('usomedico_index') }}">Ver listado uso médico</a>
+{% endblock %}

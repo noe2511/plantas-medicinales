@@ -1,0 +1,6 @@
+{% extends "template" %}
+{% block body %}
+    <div class="alert alert-danger">
+        Error: {{ error_mensaje }} <a href="{{ path('principal') }}">Volver</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset("css/login.css") }}">
+
+
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    {#<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+    #}
+    <div id="login">
+
+        <div class="login-reg-panel">
+            <div class="login-info-box">
+                <h2>¿Tienes cuenta?</h2>
+                <label id="label-register" for="log-reg-show">Inicia sesión</label>
+                <input type="radio" name="active-log-panel" id="log-reg-show"  checked="checked">
+            </div>
+                                
+            <div class="register-info-box">
+                <h2>¿No tienes cuenta?</h2>
+                <label id="label-login" for="log-login-show">Regístrate</label>
+                <input type="radio" name="active-log-panel" id="log-login-show">
+            </div>
+                                
+            <div class="white-panel">
+                <div class="login-show">
+                    <h2>LOGIN</h2>
+                    <input type="text" placeholder="Email">
+                    <input type="password" placeholder="Contraseña">
+                    <input type="button" value="Login">
+                    <a href="">¿Olvidaste la contraseña?</a>
+                </div>
+                <div class="register-show">
+                    <h2>Regístrate</h2>
+                    <input type="text" placeholder="Email">
+                    <input type="password" placeholder="Contraseña">
+                    <input type="password" placeholder="Confirma la contraseña">
+                    <input type="button" value="Registrarse">
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+    {#<button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>#}
+</form>
+<script src="{{ asset("js/login.js") }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% endblock %}

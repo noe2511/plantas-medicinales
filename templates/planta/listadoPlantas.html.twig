@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+
+
+<table class="table table-sm">
+    <tr class="table-dark">
+        <th>Nombre de la planta:</th>
+        <th>Descripción:</th>
+        <th>Localización:</th>
+        <th>Imágen:</th>
+        <th>Color:</th>
+        <th>Acciones:</th>
+    </tr>
+
+{% for planta in plantas %}
+<tr class="table-secondary">
+    <td> {{planta.Nombre}} </td>
+    <td> {{planta.Descripcion}} </td>
+    <td> {{planta.Localizacion}}</td>
+    <td> <img src="../../../public/imagenes/{{planta.imagen}}" alt="imagen" style="width: 20vh; height: 20vh;"></td>
+    <td>  {{planta.ColorflorIdcolorflor}}</td>
+    <td>
+        <button type="button" class="btn btn-info"><a href="{{path('modifica_planta',{'id':planta.idplanta})}}" style="color:white;">Modificar</a></button>
+        <button type="button" class="btn btn-info"><a href="{{path('borra_planta',{'id':planta.idplanta})}}" style="color:white;">Borrar</a></button>
+    </td>
+</tr>
+   
+{% endfor %}
+</table>
+{% endblock %}

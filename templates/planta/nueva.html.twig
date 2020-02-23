@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block body %}
+{{ form_start(form,{'attr':{'novalidate':true}}) }}
+
+{{ form_row(form.nombre)}}
+{{ form_row(form.descripcion)}}
+{{ form_row(form.localizacion)}}
+{{ form_row(form.colorflorIdcolorflor,{'label':'Color de flor','attr':{'placeholder':'Elige color'}}) }}
+<a href="{{ path('nuevoColor') }}">Crear nuevo color</a>
+{{ form_row(form.parteutilIdparteutil)}}
+<a href="{{ path('nuevaParteUtil') }}">Crear nueva parte útil</a>
+{{ form_row(form.usomedicoIdusomedico)}}
+<a href="{{ path('nuevoUsoMedico') }}">Crear nuevo uso médico</a>
+{{ form_rest(form)}}
+<input type="submit" value="Enviar">
+
+<script type="application/javascript">
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').html(fileName);
+        });
+</script>
+
+{% endblock %}
+

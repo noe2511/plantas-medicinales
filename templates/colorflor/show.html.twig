@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Color{% endblock %}
+
+{% block body %}
+    <h1>Color</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idcolorflor</th>
+                <td>{{ colorflor.idcolorflor }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ colorflor.color }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('colorflor_index') }}">back to list</a>
+
+    <a href="{{ path('editarColor', {'idcolorflor': colorflor.idcolorflor}) }}">Editar</a>
+
+    {{ include('colorflor/borrarColor.html.twig') }}
+{% endblock %}

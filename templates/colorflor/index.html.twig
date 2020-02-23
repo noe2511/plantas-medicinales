@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Colorflor index{% endblock %}
+
+{% block body %}
+    <h1>Colorflor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idcolorflor</th>
+                <th>Color</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for colorflor in colorflors %}
+            <tr>
+                <td>{{ colorflor.idcolorflor }}</td>
+                <td>{{ colorflor.color }}</td>
+                <td>
+                    <a href="{{ path('colorflor_show', {'idcolorflor': colorflor.idcolorflor}) }}">Ver detalles</a>
+                    <a href="{{ path('editarColor', {'idcolorflor': colorflor.idcolorflor}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No hay ningún color guardado.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('nuevoColor') }}">Crer nuevo color</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parteutil{% endblock %}
+
+{% block body %}
+    <h1>Parteutil</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id parte útil</th>
+                <td>{{ parteutil.idparteutil }}</td>
+            </tr>
+            <tr>
+                <th>Parte</th>
+                <td>{{ parteutil.parte }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('parteutil_index') }}">back to list</a>
+
+    <a href="{{ path('parteutil_edit', {'idparteutil': parteutil.idparteutil}) }}">Editar</a>
+
+    {{ include('parteutil/borrarParteUtil.html.twig') }}
+{% endblock %}

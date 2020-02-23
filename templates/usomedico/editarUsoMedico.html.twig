@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar uso médico{% endblock %}
+
+{% block body %}
+    <h1>Editar uso médico</h1>
+
+    {{ include('usomedico/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+    <a href="{{ path('usomedico_index') }}">back to list</a>
+
+    {{ include('usomedico/borrarUsoMedico.html.twig') }}
+{% endblock %}

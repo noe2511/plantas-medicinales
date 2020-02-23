@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block title %}Hello PrincipalController!{% endblock %}
+
+{% block body %}
+
+<section id="intro">
+
+    <div class="intro-text">
+      <h2>¡Bienvenid@!</h2>
+      <p>Disfruta de nuestros productos</p>
+      <a href="#about" class="btn-get-started scrollto">Comienza a comprar</a>
+    </div>
+</section>
+<div class="container">
+  <div class="row">
+      {% for planta in plantas %}<!--El corchete y el porcentaje es la manera de poner un comando de twig-->
+    
+      <div class="col-sm-4">
+        <div class="card bg-light" style="width:350px;margin-top:8px;">
+          <img class="card-img-top" src="../../PlantasMedicinales/public/imagenes/{{planta.imagen}}" alt="Card image" style="width:100%">
+          <div class="card-body">
+            <h4 class="card-title">{{ planta.nombre }}</h4>
+            <p class="card-text">{{ planta.localizacion }}</p>
+            <a href="{{ path("detallesPlanta", {'idplanta':planta.idplanta})}}" class="btn btn-secondary stretched-link">Ver detalles</a>
+          </div>
+        </div>
+      </div>  
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

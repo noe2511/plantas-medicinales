@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usomedico index{% endblock %}
+
+{% block body %}
+    <h1>Usomedico index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idusomedico</th>
+                <th>Uso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usomedico in usomedicos %}
+            <tr>
+                <td>{{ usomedico.idusomedico }}</td>
+                <td>{{ usomedico.uso }}</td>
+                <td>
+                    <a href="{{ path('usomedico_show', {'idusomedico': usomedico.idusomedico}) }}">Ver detalles</a>
+                    <a href="{{ path('editarUsoMedico', {'idusomedico': usomedico.idusomedico}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No hay usos médicos almacenados</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('nuevoUsoMedico') }}">Crear nuevo uso médico</a>
+{% endblock %}

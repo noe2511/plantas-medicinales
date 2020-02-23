@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo color{% endblock %}
+
+{% block body %}
+    <h1>Crear nuevo flor</h1>
+
+    {{ include('colorflor/_form.html.twig') }}
+
+    <a href="{{ path('colorflor_index') }}">Volver a listado de color</a>
+{% endblock %}

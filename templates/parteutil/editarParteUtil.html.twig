@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar  Parte útil{% endblock %}
+
+{% block body %}
+    <h1>Editar Parte útil</h1>
+
+    {{ include('parteutil/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('parteutil_index') }}">back to list</a>
+
+    {{ include('borrarParteUtil.html.twig') }}
+{% endblock %}

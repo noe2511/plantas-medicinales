@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+<div class="count">
+    {{ paginacion.getTotalItemCount }}
+</div>
+<table>
+    <table class="table table-sm">
+        <tr class="table-dark">
+            <th>{{ knp_pagination_sortable(paginacion, 'Id', 'a.id') }}</th>
+            <th>Nombre de la planta:</th>
+            <th>Descripción:</th>
+            <th>Localización:</th>
+            <th>Imágen:</th>
+            <th>Color:</th>
+            <th>Acciones:</th>
+        </tr>
+    
+    {% for planta in paginacion %}
+    <tr class="table-secondary">
+        <td> {{planta.idplanta}} </td>
+        <td> {{planta.Nombre}} </td>
+        <td> {{planta.Descripcion}} </td>
+        <td> {{planta.Localizacion}}</td>
+        <td> {{planta.Imagen}}</td>
+        <td>  {{planta.ColorflorIdcolorflor}}</td>
+        <td>
+            <button type="button" class="btn btn-info"><a href="{{path('modifica_planta',{'id':planta.idplanta})}}" style="color:white;">Modificar</a></button>
+            <button type="button" class="btn btn-info"><a href="{{path('borra_planta',{'id':planta.idplanta})}}" style="color:white;">Borrar</a></button>
+        </td>
+    </tr>
+       
+    {% endfor %}
+    
+</table>
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(paginacion) }}
+</div>
+
+{% endblock %}
