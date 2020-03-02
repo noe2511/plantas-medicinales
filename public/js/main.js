@@ -8,7 +8,6 @@ jQuery(document).ready(function($) {
     } else {
       $('.back-to-top').fadeOut('slow');
       $('#header').removeClass('header-fixed');
-      
     }
   });
 
@@ -128,5 +127,7 @@ jQuery(document).ready(function($) {
   });
 
   // custom code
+  
+
 
 });

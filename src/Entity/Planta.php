@@ -8,9 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Planta
- *
+ * @ORM\Entity(repositoryClass="App\Repository\PlantaRepository")
  * @ORM\Table(name="planta", indexes={@ORM\Index(name="fk_Planta_ColorFlor_idx", columns={"ColorFlor_idColorFlor"})})
- * @ORM\Entity
  */
 class Planta
 {

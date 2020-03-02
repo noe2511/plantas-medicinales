@@ -3,29 +3,35 @@
 {% block title %}Detalles planta{% endblock %}
 
 {% block body %}
-<div class="card mb-3" style="max-width: 540px;">
+<div class="card mb-3" style="width: 98%;margin:15px;">
     <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="{{asset('imagenes/' ~ planta.imagen)}}" class="card-img" alt="">
-      </div>
       <div class="col-md-8">
+        <img src="{{asset('imagenes/' ~ planta.imagen)}}" class="card-img" alt="" >
+      </div>
+      <div class="col-md-4">
         <div class="card-body">
           <h5 class="card-title">{{planta.nombre}}</h5>
+          <span>Descripción:</span>
           <p class="card-text">{{planta.descripcion}}</p>
+          <span>Lozalización:</span>
           <p class="card-text">{{planta.localizacion}}</p>
-          
+          <span>Color:</span>
+          <p class="card-text">{{planta.ColorflorIdcolorflor}}</p>
+          <span>Partes de útiles:</span>
           <ul>
            {% for parte in planta.parteutilIdparteUtil %}
               <li>{{parte}}</li>
             {% endfor %}
           </ul>
+          <span>Usos médicos:</span>
           <ul>
             {% for uso in planta.usomedicoIdusomedico %}
               <li>{{uso}}</li>
             {% endfor %}  
           </ul>
-          {#<p class="card-text">{{planta.parteutilIdparteUtil}}</p>
-          <p class="card-text">{{planta.usomedicoIdusomedico}}</p>#}
+          
+          <a href="{{ asset("index.php") }}" class="btn btn-outline-secondary">Volver a inicio</a>
+        
         </div>
       </div>
     </div>

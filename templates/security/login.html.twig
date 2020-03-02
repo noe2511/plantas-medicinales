@@ -23,11 +23,9 @@
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-    #}
+ #}
+    
+   
     <div id="login">
 
         <div class="login-reg-panel">
@@ -46,9 +44,12 @@
             <div class="white-panel">
                 <div class="login-show">
                     <h2>LOGIN</h2>
-                    <input type="text" placeholder="Email">
-                    <input type="password" placeholder="Contraseña">
-                    <input type="button" value="Login">
+                    <input value="{{ last_username }}" name="email" id="inputEmail" type="text" placeholder="Email">
+                    <input name="password" id="inputPassword" type="password" placeholder="Contraseña">
+                    <input type="submit" value="Login">
+                    <input type="hidden" name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}"
+                    >
                     <a href="">¿Olvidaste la contraseña?</a>
                 </div>
                 <div class="register-show">
@@ -62,6 +63,7 @@
         </div>
     
     </div>
+    
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html

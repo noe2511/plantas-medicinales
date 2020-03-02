@@ -2,6 +2,7 @@
 {% block title %}Hello PrincipalController!{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ asset("css/filtrado.css") }}">
 
 <section id="intro">
 
@@ -11,13 +12,14 @@
       <a href="#about" class="btn-get-started scrollto">Comienza a comprar</a>
     </div>
 </section>
-<div class="container">
+<div id="contenedor">
+<div id="imprimir">
   <div class="row">
-      {% for planta in plantas %}<!--El corchete y el porcentaje es la manera de poner un comando de twig-->
+      {% for planta in paginacion %}<!--El corchete y el porcentaje es la manera de poner un comando de twig-->
     
       <div class="col-sm-4">
-        <div class="card bg-light" style="width:350px;margin-top:8px;">
-          <img class="card-img-top" src="../../PlantasMedicinales/public/imagenes/{{planta.imagen}}" alt="Card image" style="width:100%">
+        <div class="card bg-light" style="margin-top:26px;">
+          <img class="card-img-top" src="{{asset('imagenes/' ~ planta.imagen)}}" alt="Card image" style="width:100%">
           <div class="card-body">
             <h4 class="card-title">{{ planta.nombre }}</h4>
             <p class="card-text">{{ planta.localizacion }}</p>
@@ -27,6 +29,51 @@
       </div>  
       {% endfor %}
     </div>
+    {# display navigation #}
+  <div class="navigation">
+    {{ knp_pagination_render(paginacion) }}
   </div>
+  </div>
+  
+  
+  <div id="filtros">
+    
+    <form method="get" action="">
+      
+      <div class="form-check">
+        <span>Filtrar por color:</span>
+        {% for color in colorflors %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" class="form-control" value="{{ color }}" name="colorFiltrado" id="{{ color }}">
+            <label class="form-check-label" for="{{ color }}">{{ color }}</label>
+          </div>
+        {% endfor %}
+      </div>
 
+
+      <div class="form-check">
+        <span>Filtrar por parte útil:</span>
+        {% for parte in partesUtiles %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" class="form-control" value="{{ parte }}" name="parteUtil[]" id="{{ parte }}">
+            <label class="form-check-label" for="{{ parte }}">{{ parte }}</label>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="form-check">
+        <span>Filtrar por uso médico:</span>
+        {% for uso in usoMedico %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" class="form-control" value="{{ uso }}" name="usoMedico[]" id="{{ uso }}">
+            <label class="form-check-label" for="{{ uso }}">{{ uso }}</label>
+          </div>
+        {% endfor %}
+      </div>
+
+      <input type="button" class="btn btn-outline-secondary" type="submit" value="Filtrar" id="boton">
+      
+    </form>
+</div>
+</div>
 {% endblock %}

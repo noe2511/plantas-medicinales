@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Planta;
+use App\Entity\Colorflor;
 use App\Form\PlantaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 class PlantaController extends AbstractController
@@ -39,6 +41,8 @@ class PlantaController extends AbstractController
             $em = $this->getDoctrine()->getManager(); //em viene de entity manager
             $em->persist($nuevaPlanta); //persist actualiza la memoria
             $em->flush(); //flush guarda en la BD
+
+            return $this->redirect($request->getUri());
         }
 
         return $this->render("planta/nueva.html.twig", ["form" => $form->createView()]);
@@ -64,18 +68,26 @@ class PlantaController extends AbstractController
      * @param integer $id
      * @return void
      */
-    public function modificarPlanta(int $id, Request $request) //id tiene que ser el mismo nombre que el de la plantilla
+    public function modificarPlanta(Planta $planta, Request $request) //id tiene que ser el mismo nombre que el de la plantilla
     {
-        $em = $this->getDoctrine()->getManager();
-        $planta = $em->getRepository(Planta::class)->find($id);
-
         $form = $this->createForm(PlantaType::class, $planta);
         $form->handleRequest($request); //Se encarga de recoger los datos del formulario
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+
+            $ficheroimagen = $form['ficheroimagen']->getData();
+            if ($ficheroimagen) {
+                $nombrearchivo = $ficheroimagen->getClientOriginalName();
+                $ficheroimagen->move(
+                    $this->getParameter('directorio_imagenes'),
+                    $nombrearchivo
+                );
+            }
+            $planta->setImagen($nombrearchivo);
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute("listadoPlantas");
         }
+
         return $this->render("planta/nueva.html.twig", ["form" => $form->createView()]);
     }
 

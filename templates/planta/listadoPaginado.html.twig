@@ -1,13 +1,15 @@
 {% extends "base.html.twig" %}
+
 {% block body %}
+<link rel="stylesheet" href="{{ asset("css/listados.css") }}">
 
 <div class="count">
+    <span>Total plantas:</span>
     {{ paginacion.getTotalItemCount }}
 </div>
-<table>
-    <table class="table table-sm">
+<table class="table table-striped">
         <tr class="table-dark">
-            <th>{{ knp_pagination_sortable(paginacion, 'Id', 'a.id') }}</th>
+            <th>ID</th>
             <th>Nombre de la planta:</th>
             <th>Descripción:</th>
             <th>Localización:</th>
@@ -17,14 +19,21 @@
         </tr>
     
     {% for planta in paginacion %}
-    <tr class="table-secondary">
-        <td> {{planta.idplanta}} </td>
-        <td> {{planta.Nombre}} </td>
-        <td> {{planta.Descripcion}} </td>
-        <td> {{planta.Localizacion}}</td>
-        <td> {{planta.Imagen}}</td>
-        <td>  {{planta.ColorflorIdcolorflor}}</td>
-        <td>
+    <tr>
+        <td style="vertical-align:middle;"> {{planta.idplanta}} </td>
+        <td style="vertical-align:middle;"> {{planta.Nombre}} </td>
+        <td style="vertical-align:middle;"> {{planta.Descripcion}} </td>
+        <td style="vertical-align:middle;"> {{planta.Localizacion}}</td>
+        <td> 
+            <a class="agrandar" href="">
+                <img src="{{asset('imagenes/' ~ planta.imagen)}}" alt="imagen" style="width: 10vh; height: 10vh;">
+                <span>
+                    <img src="{{asset('imagenes/' ~ planta.imagen)}}" /><br />
+                </span>
+            </a>
+        </td>
+        <td style="vertical-align:middle;">  {{planta.ColorflorIdcolorflor}}</td>
+        <td style="vertical-align:middle;">
             <button type="button" class="btn btn-info"><a href="{{path('modifica_planta',{'id':planta.idplanta})}}" style="color:white;">Modificar</a></button>
             <button type="button" class="btn btn-info"><a href="{{path('borra_planta',{'id':planta.idplanta})}}" style="color:white;">Borrar</a></button>
         </td>

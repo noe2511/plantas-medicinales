@@ -18,7 +18,7 @@
     <td> {{planta.Nombre}} </td>
     <td> {{planta.Descripcion}} </td>
     <td> {{planta.Localizacion}}</td>
-    <td> <img src="../../../public/imagenes/{{planta.imagen}}" alt="imagen" style="width: 20vh; height: 20vh;"></td>
+    <td> <img src="{{asset('imagenes/' ~ planta.imagen)}}" alt="imagen" style="width: 20vh; height: 20vh;"></td>
     <td>  {{planta.ColorflorIdcolorflor}}</td>
     <td>
         <button type="button" class="btn btn-info"><a href="{{path('modifica_planta',{'id':planta.idplanta})}}" style="color:white;">Modificar</a></button>

@@ -38,6 +38,7 @@
   <!-- Main Stylesheet File -->
   <link rel="stylesheet" href="{{ asset("css/style.css") }}">
  
+ 
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -50,14 +51,14 @@
         
 
         <!--CUERPO-->
-        <div id="cuerpo" style="background-color: #E4DCDA;">
-
-        
-          
-          {% block body %}{% endblock %}
-        </div>
+       <div id="cuerpo">
+        {% block body %}{% endblock %}
+       </div>
         <!--PIE-->
-        {% embed "shared/pie.html.twig" %}
+        
+            {% embed "shared/pie.html.twig" %}
+        
+        
 
         {% endembed %}
         {% block javascripts %}{% endblock %}

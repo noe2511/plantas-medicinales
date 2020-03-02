@@ -23,7 +23,7 @@ class ColorflorController extends AbstractController
             ->getRepository(Colorflor::class)
             ->findAll();
 
-        return $this->render('colorflor/index.html.twig', [
+        return $this->render('principal/index.html.twig', [
             'colorflors' => $colorflors,
         ]);
     }
@@ -42,7 +42,7 @@ class ColorflorController extends AbstractController
             $entityManager->persist($colorflor);
             $entityManager->flush();
 
-            return $this->redirectToRoute('colorflor_index');
+            return $this->redirect($request->getUri());
         }
 
         return $this->render('colorflor/nuevoColor.html.twig', [
