@@ -5,12 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Producto
  *
  * @ORM\Table(name="producto")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProductoRepository")
  */
 class Producto
 {
@@ -27,6 +29,7 @@ class Producto
      * @var string
      *
      * @ORM\Column(name="Nombre", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -34,6 +37,7 @@ class Producto
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="string", length=500, nullable=false)
+     * @Assert\NotBlank()
      */
     private $descripcion;
 
@@ -41,13 +45,22 @@ class Producto
      * @var float
      *
      * @ORM\Column(name="Precio", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotBlank()
      */
     private $precio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagen", type="string", length=250, nullable=false)
+     */
+    private $imagen;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Usomedico", mappedBy="productoIdproducto")
+     * @Assert\Count(min = 1)
      */
     private $usomedicoIdusomedico;
 
@@ -96,6 +109,18 @@ class Producto
     public function setPrecio(float $precio): self
     {
         $this->precio = $precio;
+
+        return $this;
+    }
+
+    public function getImagen(): ?string
+    {
+        return $this->imagen;
+    }
+
+    public function setImagen(string $imagen): self
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }

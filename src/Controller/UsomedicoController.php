@@ -3,14 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Usomedico;
+use App\Entity\Planta;
+use App\Entity\Producto;
 use App\Form\UsomedicoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 /**
  * @Route("/usomedico")
+ *  @IsGranted("ROLE_ADMIN")
  */
 class UsomedicoController extends AbstractController
 {
@@ -86,10 +91,17 @@ class UsomedicoController extends AbstractController
      */
     public function delete(Request $request, Usomedico $usomedico): Response
     {
-        if ($this->isCsrfTokenValid('borrar' . $usomedico->getIdusomedico(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($usomedico);
-            $entityManager->flush();
+        $plantas = $this->getDoctrine()->getRepository(Planta::class)->getPlantasUnUsoMedico($usomedico);
+        $productos = $this->getDoctrine()->getRepository(Producto::class)->getProductosUnUsoMedico($usomedico);
+
+        if (($plantas != null || $plantas != "") && ($productos != null || $productos != "")) {
+            return $this->render("usomedico/errorBorrar.html.twig");
+        } else {
+            if ($this->isCsrfTokenValid('borrar' . $usomedico->getIdusomedico(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($usomedico);
+                $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('usomedico_index');

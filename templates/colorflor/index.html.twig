@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Colorflor index</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="table-dark">
                 <th>Idcolorflor</th>
                 <th>Color</th>
                 <th>actions</th>
@@ -19,8 +19,8 @@
                 <td>{{ colorflor.idcolorflor }}</td>
                 <td>{{ colorflor.color }}</td>
                 <td>
-                    <a href="{{ path('colorflor_show', {'idcolorflor': colorflor.idcolorflor}) }}">Ver detalles</a>
-                    <a href="{{ path('editarColor', {'idcolorflor': colorflor.idcolorflor}) }}">Editar</a>
+                    <a href="{{ path('colorflor_show', {'idcolorflor': colorflor.idcolorflor}) }}" class="btn btn-info">Ver detalles</a>
+                    <a href="{{ path('editarColor', {'idcolorflor': colorflor.idcolorflor}) }}" class="btn btn-info">Editar</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('nuevoColor') }}">Crer nuevo color</a>
+    <a href="{{ path('nuevoColor') }}" class="btn btn-info">Crer nuevo color</a>
 {% endblock %}

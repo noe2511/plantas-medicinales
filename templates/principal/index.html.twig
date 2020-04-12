@@ -9,7 +9,6 @@
     <div class="intro-text">
       <h2>¡Bienvenid@!</h2>
       <p>Disfruta de nuestros productos</p>
-      <a href="#about" class="btn-get-started scrollto">Comienza a comprar</a>
     </div>
 </section>
 <div id="contenedor">
@@ -18,12 +17,12 @@
       {% for planta in paginacion %}<!--El corchete y el porcentaje es la manera de poner un comando de twig-->
     
       <div class="col-sm-4">
-        <div class="card bg-light" style="margin-top:26px;">
-          <img class="card-img-top" src="{{asset('imagenes/' ~ planta.imagen)}}" alt="Card image" style="width:100%">
+        <div class="card bg-light" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-top:26px;">
+          <img class="card-img-top" src="{{asset('imagenes/' ~ planta.imagen)}}" alt="Card image" style="width:100%;max-height:150px;">
           <div class="card-body">
             <h4 class="card-title">{{ planta.nombre }}</h4>
             <p class="card-text">{{ planta.localizacion }}</p>
-            <a href="{{ path("detallesPlanta", {'idplanta':planta.idplanta})}}" class="btn btn-secondary stretched-link">Ver detalles</a>
+            <a href="{{ path("detallesPlanta", {'idplanta':planta.idplanta})}}" class="btn btn-secondary stretched-link" target="_blank">Ver detalles</a>
           </div>
         </div>
       </div>  
@@ -71,7 +70,7 @@
         {% endfor %}
       </div>
 
-      <input type="button" class="btn btn-outline-secondary" type="submit" value="Filtrar" id="boton">
+      <input type="submit" class="btn btn-outline-secondary"  value="Filtrar" id="boton">
       
     </form>
 </div>

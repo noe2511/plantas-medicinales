@@ -18,9 +18,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('parteutil_index') }}">back to list</a>
+    <a href="{{ path('parteutil_index') }}">Volver a la lista de partes útiles</a>
 
-    <a href="{{ path('parteutil_edit', {'idparteutil': parteutil.idparteutil}) }}">Editar</a>
+    <a href="{{ path('editarParteUtil', {'idparteutil': parteutil.idparteutil}) }}">Editar</a>
 
     {{ include('parteutil/borrarParteUtil.html.twig') }}
 {% endblock %}

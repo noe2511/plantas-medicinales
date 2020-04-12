@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Parteutil;
+use App\Entity\Planta;
 use App\Form\ParteutilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/parteutil")
+ *  @IsGranted("ROLE_ADMIN")
  */
 class ParteutilController extends AbstractController
 {
@@ -86,12 +89,18 @@ class ParteutilController extends AbstractController
      */
     public function delete(Request $request, Parteutil $parteutil): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $parteutil->getIdparteutil(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($parteutil);
-            $entityManager->flush();
-        }
+        $plantas = $this->getDoctrine()->getRepository(Planta::class)->getPlantasParteUtil($parteutil);
 
-        return $this->redirectToRoute('parteutil_index');
+        if ($plantas != null || $plantas != "") {
+            return $this->render("parteutil/errorBorrar.html.twig");
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $parteutil->getIdparteutil(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($parteutil);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('parteutil_index');
+            }
+        }
     }
 }

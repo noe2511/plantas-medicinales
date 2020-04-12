@@ -3,20 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Planta;
-use App\Entity\Colorflor;
 use App\Form\PlantaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class PlantaController extends AbstractController
 {
     /**
      * @Route("/planta/nueva", name="plantanueva")
-     *
-     * @return void
+     *  @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function nuevaPlanta(Request $request)
     {
@@ -34,6 +34,8 @@ class PlantaController extends AbstractController
                     $nombrearchivo
                 );
                 $nuevaPlanta->setImagen($nombrearchivo);
+            } else {
+                $nuevaPlanta->setImagen("no_disponible.png");
             }
 
 
@@ -50,6 +52,7 @@ class PlantaController extends AbstractController
 
     /**
      * @Route("/planta/listadoPlantas", name="listadoPlantas")
+     *  @IsGranted("ROLE_ADMIN")
      *
      * @return void
      */
@@ -64,11 +67,12 @@ class PlantaController extends AbstractController
 
     /**
      * @Route("planta/modificar/{id}", name="modifica_planta")
+     *  @IsGranted("ROLE_ADMIN")
      *
      * @param integer $id
      * @return void
      */
-    public function modificarPlanta(Planta $planta, Request $request) //id tiene que ser el mismo nombre que el de la plantilla
+    public function modificarPlanta(Planta $planta, Request $request)
     {
         $form = $this->createForm(PlantaType::class, $planta);
         $form->handleRequest($request); //Se encarga de recoger los datos del formulario
@@ -82,10 +86,11 @@ class PlantaController extends AbstractController
                     $this->getParameter('directorio_imagenes'),
                     $nombrearchivo
                 );
+                $planta->setImagen($nombrearchivo);
             }
-            $planta->setImagen($nombrearchivo);
+
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute("listadoPlantas");
+            return $this->redirectToRoute("listado_paginado");
         }
 
         return $this->render("planta/nueva.html.twig", ["form" => $form->createView()]);
@@ -93,6 +98,7 @@ class PlantaController extends AbstractController
 
     /**
      * @Route("planta/borrar/{id}", name="borra_planta")
+     *  @IsGranted("ROLE_ADMIN")
      *
      * @param Planta $planta
      * @return void
@@ -103,7 +109,7 @@ class PlantaController extends AbstractController
         $em->remove($planta);
         $em->flush();
 
-        return $this->redirectToRoute("listadoPlantas");
+        return $this->redirectToRoute("listado_paginado");
     }
 
     /**

@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('parteutil_delete', {'idparteutil': parteutil.idparteutil}) }}" onsubmit="return confirm('¿Está seguro que quiere borrar la parte útil?');">
+<form method="post" action="{{ path('borrarParteUtil', {'idparteutil': parteutil.idparteutil}) }}" onsubmit="return confirm('¿Está seguro que quiere borrar la parte útil?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ parteutil.idparteutil) }}">
     <button class="btn">Borrar</button>

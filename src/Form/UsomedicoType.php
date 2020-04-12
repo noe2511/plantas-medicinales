@@ -12,10 +12,7 @@ class UsomedicoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('uso')
-            ->add('plantaIdplanta')
-            ->add('productoIdproducto')
-        ;
+            ->add('uso');
     }
 
     public function configureOptions(OptionsResolver $resolver)

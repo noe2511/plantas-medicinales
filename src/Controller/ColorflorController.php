@@ -9,13 +9,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+
 /**
  * @Route("/colorflor")
+ *  @IsGranted("ROLE_ADMIN")
  */
 class ColorflorController extends AbstractController
 {
     /**
-     * @Route("/", name="colorflor_index", methods={"GET"})
+     * @Route("/index", name="colorflor_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -23,7 +27,7 @@ class ColorflorController extends AbstractController
             ->getRepository(Colorflor::class)
             ->findAll();
 
-        return $this->render('principal/index.html.twig', [
+        return $this->render('colorflor/index.html.twig', [
             'colorflors' => $colorflors,
         ]);
     }
@@ -52,7 +56,7 @@ class ColorflorController extends AbstractController
     }
 
     /**
-     * @Route("/{idcolorflor}", name="colorflor_show", methods={"GET"})
+     * @Route("colorflor/show/{idcolorflor}", name="colorflor_show", methods={"GET"})
      */
     public function show(Colorflor $colorflor): Response
     {
@@ -82,14 +86,21 @@ class ColorflorController extends AbstractController
     }
 
     /**
-     * @Route("colorflor/borrarColor/{idcolorflor}", name="borrarColor", methods={"DELETE"})
+     * @Route("/colorflor/borrarColor/{idcolorflor}", name="borrarColor", methods={"DELETE"})
      */
     public function delete(Request $request, Colorflor $colorflor): Response
     {
         if ($this->isCsrfTokenValid('delete' . $colorflor->getIdcolorflor(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($colorflor);
-            $entityManager->flush();
+
+            try {
+                $entityManager->remove($colorflor);
+                $entityManager->flush();
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                $exception_message = $e->getPrevious()->getCode();
+                $colorflor = "color";
+                return $this->render("colorflor/errorBorrar.html.twig");
+            }
         }
 
         return $this->redirectToRoute('colorflor_index');

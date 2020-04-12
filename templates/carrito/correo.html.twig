@@ -1,0 +1,18 @@
+Pedido realizado con éxito
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Unidades</th>
+    </tr>
+
+    {% for prod in productos %}
+        <tr>
+            <td>{{ prod.nombre }}</td>
+            <td>{{ prod.descripcion }}</td>
+            <td>{{ prod.unidades }}</td>
+            <td></td>
+        </tr>
+    {% endfor %}
+</table>

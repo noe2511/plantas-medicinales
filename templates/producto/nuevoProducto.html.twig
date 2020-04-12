@@ -7,5 +7,12 @@
 
     {{ include('producto/_form.html.twig') }}
 
-    <a href="{{ path('producto_index') }}">back to list</a>
+    <a href="{{ path('producto_index') }}">Volver a listado de productos.</a>
+
+    <script type="application/javascript">
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').html(fileName);
+        });
+</script>
 {% endblock %}

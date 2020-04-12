@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error borrar parte útil{% endblock %}
+
+{% block body %}
+    <p>No se puede eliminar la parte útil ya que está siendo utilizada por una planta</p>
+
+    <a href="{{ path('parteutil_index') }}">Volver al listado de parte útil</a>
+{% endblock %}

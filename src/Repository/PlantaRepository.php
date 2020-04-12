@@ -116,13 +116,28 @@ class PlantaRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder('p')
             ->select('p')->from('App\Entity\Planta', 'p')
-            ->setParameter(':uso', $usoMedico)
-            ->innerJoin('p.usomedicoIdusomedico', 'um');
+            ->innerJoin('p.usomedicoIdusomedico', 'um')
+            ->where('um.uso = :uso')
+            ->setParameter(':uso', $usoMedico[0]);
 
-        for ($i = 0; $i < sizeof($usoMedico); $i++) {
+        for ($i = 1; $i < sizeof($usoMedico); $i++) {
             $qb->orWhere('um.uso = :uso' . $i);
             $qb->setParameter(":uso" . $i, $usoMedico[$i]);
         }
+        $consulta = $qb->getQuery();
+
+        return  $consulta->execute();
+    }
+
+    public function getPlantasUnUsoMedico($usoMedico)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder('p')
+            ->select('p')->from('App\Entity\Planta', 'p')
+            ->innerJoin('p.usomedicoIdusomedico', 'um')
+            ->where('um.uso = :uso')
+            ->setParameter(':uso', $usoMedico);
+
         $consulta = $qb->getQuery();
 
         return  $consulta->execute();
@@ -189,7 +204,6 @@ class PlantaRepository extends ServiceEntityRepository
 
     public function getPlantasTodosFiltros($color, $parteUtil, $usoMedico)
     {
-        var_dump("hola");
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder('p')
             ->select('p')->from('App\Entity\Planta', 'p')
@@ -201,7 +215,6 @@ class PlantaRepository extends ServiceEntityRepository
         for ($i = 0; $i < sizeof($parteUtil); $i++) {
             $qb->orWhere('pu.parte = :parte' . $i);
             $qb->setParameter(":parte" . $i, $parteUtil[$i]);
-            var_dump("hola2");
         }
 
         $qb->innerJoin('p.usomedicoIdusomedico', 'um');

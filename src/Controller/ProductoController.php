@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Producto;
 use App\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Producto;
+use App\Entity\UsoMedico;
+use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\ProductoRepository;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/producto")
@@ -30,6 +36,7 @@ class ProductoController extends AbstractController
 
     /**
      * @Route("/producto/nuevoProducto", name="nuevoProducto", methods={"GET","POST"})
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -38,6 +45,19 @@ class ProductoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ficheroimagen = $form['ficheroimagen']->getData();
+            if ($ficheroimagen) {
+                $nombrearchivo = $ficheroimagen->getClientOriginalName();
+                $ficheroimagen->move(
+                    $this->getParameter('directorio_imagenes'),
+                    $nombrearchivo
+                );
+                $producto->setImagen($nombrearchivo);
+            } else {
+                $producto->setImagen("no_disponible.png");
+            }
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($producto);
             $entityManager->flush();
@@ -63,6 +83,7 @@ class ProductoController extends AbstractController
 
     /**
      * @Route("/producto/editarProducto/{idproducto}", name="editarProducto", methods={"GET","POST"})
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Producto $producto): Response
     {
@@ -83,6 +104,7 @@ class ProductoController extends AbstractController
 
     /**
      * @Route("/producto/borrarProducto/{idproducto}", name="borrarProducto", methods={"DELETE"})
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Producto $producto): Response
     {
@@ -93,5 +115,37 @@ class ProductoController extends AbstractController
         }
 
         return $this->redirectToRoute('producto_index');
+    }
+
+    /**
+     * @Route("/producto/tienda", name="tienda")
+     *
+     * @return void
+     */
+    public function tiendaPaginada(PaginatorInterface $paginator, Request $request, ProductoRepository $prepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        var_dump($_GET);
+        if (isset($_GET["usoMedico"])) {
+            $productos = $prepository->getProductosUsoMedico($_GET["usoMedico"]);
+        } else {
+            $productos = $em->getRepository(Producto::class)->findAll();
+        }
+
+        $usoMedico = $this->getDoctrine()
+            ->getRepository(Usomedico::class)
+            ->findAll();
+
+        $paginacion = $paginator->paginate(
+            $productos, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
+        );
+
+        return $this->render("producto/tienda.html.twig", [
+            'paginacion' => $paginacion,
+            'productos' => $productos,
+            'usoMedico' => $usoMedico
+        ]);
     }
 }

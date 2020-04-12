@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('usomedico_delete', {'idusomedico': usomedico.idusomedico}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('borrarUsoMedico', {'idusomedico': usomedico.idusomedico}) }}" onsubmit="return confirm('¿Seguro que quiere borrar el uso médico?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ usomedico.idusomedico) }}">
     <button class="btn">Borrar</button>

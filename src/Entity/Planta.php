@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Planta
@@ -19,6 +20,7 @@ class Planta
      * @ORM\Column(name="idPlanta", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * 
      */
     private $idplanta;
 
@@ -26,6 +28,7 @@ class Planta
      * @var string
      *
      * @ORM\Column(name="Nombre", type="string", length=45, nullable=false)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -33,6 +36,7 @@ class Planta
      * @var string
      *
      * @ORM\Column(name="Descripcion", type="string", length=500, nullable=false)
+     * @Assert\NotBlank()
      */
     private $descripcion;
 
@@ -40,6 +44,7 @@ class Planta
      * @var string|null
      *
      * @ORM\Column(name="Localizacion", type="string", length=100, nullable=true)
+     * @Assert\NotBlank()
      */
     private $localizacion;
 
@@ -57,6 +62,7 @@ class Planta
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ColorFlor_idColorFlor", referencedColumnName="idColorFlor")
      * })
+     * @Assert\NotBlank()
      */
     private $colorflorIdcolorflor;
 
@@ -72,6 +78,8 @@ class Planta
      *     @ORM\JoinColumn(name="ParteUtil_idParteUtil", referencedColumnName="idParteUtil")
      *   }
      * )
+     * @Assert\NotBlank()
+     * @Assert\Count(min = 1)
      */
     private $parteutilIdparteutil;
 
@@ -87,6 +95,8 @@ class Planta
      *     @ORM\JoinColumn(name="UsoMedico_idUsoMedico", referencedColumnName="idUsoMedico")
      *   }
      * )
+     * @Assert\NotBlank()
+     * @Assert\Count(min = 1)
      */
     private $usomedicoIdusomedico;
 

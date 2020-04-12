@@ -5,7 +5,12 @@
 {% block body %}
     <h1>Crear nuevo uso médico</h1>
 
-    {{ include('usomedico/_form.html.twig') }}
+    {{ form_start(form) }}
+    
+        {{ form_row(form.uso) }}
+        <button class="btn">{{ button_label|default('save') }}</button>
+    
+    {{ form_end(form) }}
 
-    <a href="{{ path('usomedico_index') }}">Ver listado uso médico</a>
+    <a href="{{ path('usomedico_index') }}">Volver a listado uso médico</a>
 {% endblock %}

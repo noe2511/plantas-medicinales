@@ -128,7 +128,6 @@ class PrincipalController extends AbstractController
      */
     public function listadoPlantasPaginado(PaginatorInterface $paginator, Request $request, PlantaRepository $prepository)
     {
-        var_dump($_GET);
         $em = $this->getDoctrine()->getManager();
 
         if (isset($_GET["colorFiltrado"])) {
@@ -155,7 +154,7 @@ class PrincipalController extends AbstractController
             }
         } else if (isset($_GET["usoMedico"])) {
             if (!isset($_GET["colorFiltrado"]) && !isset($_GET["parteUtil"])) {
-                $plantas = $prepository->getPlantasUsoMedico($_GET["usoMedico"][0]);
+                $plantas = $prepository->getPlantasUsoMedico($_GET["usoMedico"]);
             } else if (isset($_GET["colorFiltrado"]) && !isset($_GET["parteUtil"])) {
                 $plantas = $prepository->getPlantasColorUsoMedico($_GET["colorFiltrado"], $_GET["usoMedico"]);
             }
@@ -163,19 +162,14 @@ class PrincipalController extends AbstractController
             $plantas = $em->getRepository(Planta::class)->findAll();
         }
 
-
-
-        $em = $this->getDoctrine()->getManager();
         $colorflors = $this->getDoctrine()
             ->getRepository(Colorflor::class)
             ->findAll();
 
-        $em = $this->getDoctrine()->getManager();
         $partesUtiles = $this->getDoctrine()
             ->getRepository(Parteutil::class)
             ->findAll();
 
-        $em = $this->getDoctrine()->getManager();
         $usoMedico = $this->getDoctrine()
             ->getRepository(Usomedico::class)
             ->findAll();

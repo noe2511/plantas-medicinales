@@ -7,9 +7,9 @@
 {{ form_row(form.localizacion)}}
 {{ form_row(form.colorflorIdcolorflor,{'label':'Color de flor','attr':{'placeholder':'Elige color'}}) }}
 <a href="{{ path('nuevoColor') }}">Crear nuevo color</a>
-{{ form_row(form.parteutilIdparteutil)}}
+{{ form_row(form.parteutilIdparteutil,{'label':'Parte útil'})}}
 <a href="{{ path('nuevaParteUtil') }}">Crear nueva parte útil</a>
-{{ form_row(form.usomedicoIdusomedico)}}
+{{ form_row(form.usomedicoIdusomedico,{'label':'Uso médico'})}}
 <a href="{{ path('nuevoUsoMedico') }}">Crear nuevo uso médico</a>
 {{ form_rest(form)}}
 <input type="submit" value="Enviar">

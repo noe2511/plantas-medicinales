@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error borrar uso médico{% endblock %}
+
+{% block body %}
+    <p>No se puede eliminar el uso médico ya que está siendo utilizado por una planta o por un producto</p>
+
+    <a href="{{ path('usomedico_index') }}">Volver al listado de usos médicos</a>
+{% endblock %}

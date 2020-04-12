@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error borrar color{% endblock %}
+
+{% block body %}
+    <p>No se puede eliminar el color ya que está siendo utilizado por una planta.</p>
+
+    <a href="{{ path('colorflor_index') }}">Volver al listado de colores</a>
+{% endblock %}

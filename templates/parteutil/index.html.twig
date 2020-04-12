@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Parte útil</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="table-dark">
                 <th>Idparteutil</th>
                 <th>Parte</th>
                 <th>Acciones</th>
@@ -19,17 +19,17 @@
                 <td>{{ parteutil.idparteutil }}</td>
                 <td>{{ parteutil.parte }}</td>
                 <td>
-                    <a href="{{ path('parteutil_show', {'idparteutil': parteutil.idparteutil}) }}">show</a>
-                    <a href="{{ path('parteutil_edit', {'idparteutil': parteutil.idparteutil}) }}">edit</a>
+                    <a href="{{ path('parteutil_show', {'idparteutil': parteutil.idparteutil}) }}">Ver detalle</a>
+                    <a href="{{ path('editarParteUtil', {'idparteutil': parteutil.idparteutil}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">No hay partes útiles almacenadas.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('parteutil_new') }}">Crear nueva</a>
+    <a href="{{ path('nuevaParteUtil') }}">Crear nueva</a>
 {% endblock %}
